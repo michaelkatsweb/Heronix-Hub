@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.heronixedu.hub.controller.LoginController"
+      alignment="CENTER"
+      spacing="20"
+      styleClass="login-container"
+      prefWidth="400"
+      prefHeight="500">
+
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <!-- Logo/Title -->
+    <VBox alignment="CENTER" spacing="10">
+        <Text text="HERONIX HUB" styleClass="app-title"/>
+        <Text text="Single Sign-On Launcher" styleClass="app-subtitle"/>
+    </VBox>
+
+    <Region VBox.vgrow="SOMETIMES" minHeight="20"/>
+
+    <!-- Login Form -->
+    <VBox spacing="15" alignment="CENTER" maxWidth="300">
+        <!-- Username Field -->
+        <VBox spacing="5">
+            <Label text="Username" styleClass="field-label"/>
+            <TextField fx:id="usernameField"
+                       promptText="Enter username"
+                       styleClass="input-field"
+                       onAction="#handleLogin"/>
+        </VBox>
+
+        <!-- Password Field -->
+        <VBox spacing="5">
+            <Label text="Password" styleClass="field-label"/>
+            <PasswordField fx:id="passwordField"
+                          promptText="Enter password"
+                          styleClass="input-field"
+                          onAction="#handleLogin"/>
+        </VBox>
+
+        <!-- Error Label -->
+        <Label fx:id="errorLabel"
+               styleClass="error-label"
+               wrapText="true"
+               visible="false"
+               maxWidth="280"/>
+
+        <!-- Login Button -->
+        <Button fx:id="loginButton"
+                text="Login"
+                onAction="#handleLogin"
+                styleClass="primary-button"
+                prefWidth="150"
+                defaultButton="true"/>
+    </VBox>
+
+    <Region VBox.vgrow="SOMETIMES" minHeight="20"/>
+
+    <!-- Footer -->
+    <Text text="© 2025 Heronix Education Systems LLC" styleClass="footer-text"/>
+
+</VBox>

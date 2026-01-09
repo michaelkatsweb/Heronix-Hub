@@ -1,0 +1,193 @@
+HERONIX-HUB PROJECT STRUCTURE
+========================================
+
+heronix-hub/
+│
+├── pom.xml                                    ← Maven build configuration
+├── .gitignore                                 ← Git ignore rules
+├── run.bat                                    ← Windows run script
+├── run.sh                                     ← Linux/macOS run script
+│
+├── README.md                                  ← Main documentation
+├── QUICKSTART.md                              ← Quick start guide
+├── PROJECT_SUMMARY.md                         ← Project summary
+├── STRUCTURE.txt                              ← This file
+│
+└── src/main/
+    │
+    ├── java/com/heronixedu/hub/
+    │   │
+    │   ├── HubApplication.java                ← Main application (JavaFX + Spring Boot)
+    │   │
+    │   ├── model/
+    │   │   ├── User.java                      ← User JPA entity
+    │   │   └── Product.java                   ← Product JPA entity
+    │   │
+    │   ├── repository/
+    │   │   ├── UserRepository.java            ← User database repository
+    │   │   └── ProductRepository.java         ← Product database repository
+    │   │
+    │   ├── service/
+    │   │   ├── TokenService.java              ← JWT token generation/validation
+    │   │   ├── AuthenticationService.java     ← Login/logout logic
+    │   │   └── ProductLauncherService.java    ← Product launch logic
+    │   │
+    │   ├── controller/
+    │   │   ├── LoginController.java           ← Login screen controller
+    │   │   └── DashboardController.java       ← Dashboard controller
+    │   │
+    │   └── util/
+    │       └── TokenReader.java               ← SSO utility for other products
+    │
+    └── resources/
+        │
+        ├── application.yml                    ← Spring Boot configuration
+        ├── schema.sql                         ← Database schema
+        ├── data.sql                           ← Default data (users, products)
+        ├── logback.xml                        ← Logging configuration
+        │
+        ├── fxml/
+        │   ├── login.fxml                     ← Login screen layout
+        │   └── dashboard.fxml                 ← Dashboard layout
+        │
+        └── css/
+            └── hub-style.css                  ← Stylesheet
+
+
+RUNTIME FILES (Created on First Run)
+========================================
+
+%USERPROFILE%\.heronix\  (Windows)
+~/.heronix/               (macOS/Linux)
+│
+├── auth/
+│   └── token.jwt                              ← SSO token (8-hour expiration)
+│
+├── config/
+│   └── secret.key                             ← JWT signing key
+│
+└── hub/
+    ├── hub.db                                 ← H2 database file
+    └── logs/
+        └── hub.log                            ← Application logs
+
+
+KEY COMPONENTS
+========================================
+
+BACKEND SERVICES (3):
+  1. TokenService          - JWT generation, validation, file I/O
+  2. AuthenticationService - Login, logout, BCrypt password hashing
+  3. ProductLauncherService - Product launching, installation checking
+
+JPA ENTITIES (2):
+  1. User                  - Users with roles (ADMIN, TEACHER, STAFF, STUDENT)
+  2. Product               - Registered products (SIS, Scheduler, Time, POS)
+
+REPOSITORIES (2):
+  1. UserRepository        - User database operations
+  2. ProductRepository     - Product database operations
+
+CONTROLLERS (2):
+  1. LoginController       - Login screen logic
+  2. DashboardController   - Dashboard and product tiles logic
+
+UI SCREENS (2):
+  1. login.fxml            - Login screen layout
+  2. dashboard.fxml        - Dashboard layout
+
+UTILITIES (1):
+  1. TokenReader           - SSO utility for other Heronix products
+
+
+DEPENDENCIES
+========================================
+
+SPRING BOOT:
+  - spring-boot-starter-data-jpa
+  - spring-security-crypto (BCrypt)
+
+DATABASE:
+  - H2 Database (embedded)
+
+JAVAFX:
+  - javafx-controls (version 21)
+  - javafx-fxml (version 21)
+
+JWT:
+  - jjwt-api (version 0.12.3)
+  - jjwt-impl (version 0.12.3)
+  - jjwt-jackson (version 0.12.3)
+
+LOGGING:
+  - logback-classic
+  - slf4j
+
+UTILITIES:
+  - lombok (optional, for cleaner code)
+
+
+BUILD PROCESS
+========================================
+
+1. Maven Clean:          mvn clean
+2. Maven Package:        mvn package
+3. Run JAR:              java -jar target/heronix-hub-1.0.0.jar
+
+OR use run scripts:
+  - Windows:             run.bat
+  - Linux/macOS:         ./run.sh
+
+
+DEPLOYMENT
+========================================
+
+Development:
+  mvn spring-boot:run
+
+Production JAR:
+  mvn clean package
+  java -jar target/heronix-hub-1.0.0.jar
+
+Native Installer (jpackage):
+  - Windows:   Creates .exe installer
+  - macOS:     Creates .dmg installer
+  - Linux:     Creates .deb installer
+
+
+CONFIGURATION
+========================================
+
+Main Config:             src/main/resources/application.yml
+Database Schema:         src/main/resources/schema.sql
+Default Data:            src/main/resources/data.sql
+Logging Config:          src/main/resources/logback.xml
+Stylesheet:              src/main/resources/css/hub-style.css
+
+
+DEFAULT CREDENTIALS
+========================================
+
+Username:                admin
+Password:                admin123
+Role:                    ADMIN
+
+⚠️ CHANGE PASSWORD AFTER FIRST LOGIN!
+
+
+FILE COUNT
+========================================
+
+Java Files:              13
+FXML Files:              2
+CSS Files:               1
+SQL Files:               2
+Config Files:            3 (application.yml, logback.xml, pom.xml)
+Documentation Files:     4 (README.md, QUICKSTART.md, PROJECT_SUMMARY.md, STRUCTURE.txt)
+Scripts:                 2 (run.bat, run.sh)
+Other:                   1 (.gitignore)
+
+TOTAL:                   28 files
+
+
+© 2025 Heronix Education Systems LLC

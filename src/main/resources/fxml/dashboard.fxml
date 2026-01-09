@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.heronixedu.hub.controller.DashboardController"
+            styleClass="dashboard-container"
+            prefWidth="800"
+            prefHeight="600">
+
+    <!-- Top Bar -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="20">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+
+            <Text text="HERONIX HUB" styleClass="dashboard-title"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="welcomeLabel" styleClass="welcome-label"/>
+
+            <Button fx:id="logoutButton"
+                    text="Logout"
+                    onAction="#handleLogout"
+                    styleClass="logout-button"/>
+        </HBox>
+    </top>
+
+    <!-- Center - Product Tiles -->
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+            <VBox alignment="TOP_CENTER" spacing="20">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+
+                <Text text="Select a Product to Launch" styleClass="section-title"/>
+
+                <!-- Product Tiles Container -->
+                <FlowPane fx:id="productTilesContainer"
+                          alignment="CENTER"
+                          hgap="20"
+                          vgap="20"
+                          prefWrapLength="600">
+                </FlowPane>
+
+                <!-- No Products Message -->
+                <VBox fx:id="noProductsMessage"
+                      alignment="CENTER"
+                      spacing="10"
+                      visible="false">
+                    <Text text="No products available" styleClass="info-text"/>
+                    <Text text="Please install Heronix products to get started" styleClass="info-subtext"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Bottom Bar -->
+    <bottom>
+        <HBox styleClass="bottom-bar" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <Text text="© 2025 Heronix Education Systems LLC" styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
