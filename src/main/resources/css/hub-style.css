@@ -113,6 +113,26 @@
     -fx-border-color: #2196F3;
 }
 
+/* ========================================
+   SERVER STATUS INDICATOR
+   ======================================== */
+
+.status-indicator-container {
+    -fx-padding: 5 15;
+    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-radius: 15;
+}
+
+.status-indicator {
+    -fx-stroke: rgba(0,0,0,0.1);
+    -fx-stroke-width: 1;
+}
+
+.status-indicator-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #424242;
+}
+
 .scroll-pane {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -184,6 +204,85 @@
 }
 
 /* ========================================
+   THIRD-PARTY APP TILES
+   ======================================== */
+
+.third-party-tile {
+    -fx-pref-width: 180px;
+    -fx-pref-height: 160px;
+}
+
+.category-badge {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1976D2;
+    -fx-font-size: 10px;
+    -fx-padding: 2px 8px;
+    -fx-background-radius: 10px;
+}
+
+.status-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #757575;
+}
+
+.category-productivity { -fx-background-color: #E8F5E9; -fx-text-fill: #2E7D32; }
+.category-browser { -fx-background-color: #E3F2FD; -fx-text-fill: #1565C0; }
+.category-communication { -fx-background-color: #F3E5F5; -fx-text-fill: #7B1FA2; }
+.category-development { -fx-background-color: #FFF3E0; -fx-text-fill: #E65100; }
+.category-security { -fx-background-color: #FFEBEE; -fx-text-fill: #C62828; }
+.category-multimedia { -fx-background-color: #FCE4EC; -fx-text-fill: #AD1457; }
+.category-utilities { -fx-background-color: #ECEFF1; -fx-text-fill: #546E7A; }
+.category-education { -fx-background-color: #E0F7FA; -fx-text-fill: #00838F; }
+.category-accessibility { -fx-background-color: #F1F8E9; -fx-text-fill: #558B2F; }
+.category-graphics { -fx-background-color: #EDE7F6; -fx-text-fill: #512DA8; }
+.category-science { -fx-background-color: #E8EAF6; -fx-text-fill: #303F9F; }
+.category-reference { -fx-background-color: #EFEBE9; -fx-text-fill: #5D4037; }
+.category-other { -fx-background-color: #F5F5F5; -fx-text-fill: #616161; }
+
+.version-text {
+    -fx-font-size: 11px;
+    -fx-fill: #9E9E9E;
+}
+
+.count-badge {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-padding: 2px 8px;
+    -fx-background-radius: 10px;
+}
+
+/* ========================================
+   CATEGORY FILTER BAR
+   ======================================== */
+
+.category-filter-bar {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10px 15px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 8px;
+}
+
+.filter-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #757575;
+}
+
+.refresh-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #757575;
+    -fx-font-size: 16px;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+}
+
+.refresh-button:hover {
+    -fx-background-color: #E0E0E0;
+    -fx-background-radius: 4px;
+}
+
+/* ========================================
    INFO MESSAGES
    ======================================== */
 
@@ -222,4 +321,429 @@
 
 .alert .header-panel .label {
     -fx-text-fill: white;
+}
+
+/* ========================================
+   ADMIN BUTTON
+   ======================================== */
+
+.admin-button {
+    -fx-background-color: #FF9800;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.admin-button:hover {
+    -fx-background-color: #F57C00;
+}
+
+.admin-button:pressed {
+    -fx-background-color: #E65100;
+}
+
+/* ========================================
+   ADMIN PANEL
+   ======================================== */
+
+.admin-panel {
+    -fx-background-color: #FAFAFA;
+}
+
+.admin-header {
+    -fx-background-color: #1976D2;
+    -fx-padding: 15 20;
+}
+
+.admin-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.user-role-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: rgba(255,255,255,0.9);
+}
+
+.secondary-button {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: rgba(255,255,255,0.3);
+}
+
+.admin-tabs {
+    -fx-background-color: transparent;
+}
+
+.admin-tabs .tab-header-area {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 5 10;
+}
+
+.admin-tabs .tab {
+    -fx-background-color: transparent;
+    -fx-padding: 10 20;
+}
+
+.admin-tabs .tab:selected {
+    -fx-background-color: #E3F2FD;
+}
+
+.admin-tabs .tab .tab-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+}
+
+.tab-content {
+    -fx-background-color: #FFFFFF;
+}
+
+/* ========================================
+   ADMIN FORMS
+   ======================================== */
+
+.form-grid {
+    -fx-padding: 15;
+}
+
+.form-grid .label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #424242;
+}
+
+.form-grid .text-field,
+.form-grid .password-field,
+.form-grid .combo-box {
+    -fx-pref-height: 35px;
+    -fx-font-size: 13px;
+}
+
+/* ========================================
+   ADMIN TABLES
+   ======================================== */
+
+.table-view {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0;
+}
+
+.table-view .column-header {
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 10 5;
+}
+
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #424242;
+}
+
+.table-view .table-row-cell {
+    -fx-border-color: transparent transparent #EEEEEE transparent;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #E3F2FD;
+}
+
+/* ========================================
+   STATUS CARDS
+   ======================================== */
+
+.status-card {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
+
+.status-title {
+    -fx-font-size: 12px;
+    -fx-text-fill: #757575;
+    -fx-font-weight: 500;
+}
+
+.status-value {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.stat-value {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976D2;
+}
+
+/* ========================================
+   DANGER BUTTON
+   ======================================== */
+
+.danger-button {
+    -fx-background-color: #F44336;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5 10;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-background-color: #D32F2F;
+}
+
+/* ========================================
+   TITLED PANES
+   ======================================== */
+
+.titled-pane {
+    -fx-background-color: #FFFFFF;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 10 15;
+}
+
+.titled-pane > .title > .text {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.titled-pane > .content {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 15;
+}
+
+/* ========================================
+   PROGRESS BARS
+   ======================================== */
+
+.progress-bar {
+    -fx-pref-height: 20px;
+}
+
+.progress-bar .track {
+    -fx-background-color: #E0E0E0;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #4CAF50;
+}
+
+/* ========================================
+   SOFTWARE CATALOG
+   ======================================== */
+
+.stats-bar {
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 10 15;
+    -fx-background-radius: 5;
+}
+
+.stat-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #757575;
+}
+
+.stat-value-warning {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FF9800;
+}
+
+.success-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5 10;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.success-button:hover {
+    -fx-background-color: #43A047;
+}
+
+.success-button:pressed {
+    -fx-background-color: #388E3C;
+}
+
+.section-description {
+    -fx-font-size: 12px;
+    -fx-text-fill: #757575;
+    -fx-font-style: italic;
+}
+
+/* Software card in pending section */
+.pending-app-card {
+    -fx-background-color: #FFF3CD;
+    -fx-border-color: #FFC107;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+}
+
+/* Product cards in admin panel */
+.product-card {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0, 0, 1);
+}
+
+.product-card:hover {
+    -fx-border-color: #2196F3;
+    -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.2), 5, 0, 0, 2);
+}
+
+/* Table cell styles for software catalog */
+.software-approved {
+    -fx-text-fill: #4CAF50;
+    -fx-font-weight: bold;
+}
+
+.software-pending {
+    -fx-text-fill: #FF9800;
+}
+
+.software-installed {
+    -fx-text-fill: #4CAF50;
+}
+
+.software-not-installed {
+    -fx-text-fill: #9E9E9E;
+}
+
+/* Category badges - defined at line 215 */
+
+/* Installer type indicators */
+.installer-exe {
+    -fx-text-fill: #9C27B0;
+}
+
+.installer-msi {
+    -fx-text-fill: #00BCD4;
+}
+
+.installer-zip {
+    -fx-text-fill: #FF9800;
+}
+
+/* Info button for software details */
+.info-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2196F3;
+    -fx-font-size: 12px;
+    -fx-padding: 5 10;
+    -fx-border-color: #2196F3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
+}
+
+.info-button:hover {
+    -fx-background-color: #E3F2FD;
+}
+
+/* Warning callout for pending approvals */
+.warning-callout {
+    -fx-background-color: #FFF8E1;
+    -fx-border-color: #FFB300;
+    -fx-border-width: 0 0 0 4;
+    -fx-padding: 10 15;
+}
+
+.warning-callout-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #F57C00;
+}
+
+/* ========================================
+   UPDATE MANAGEMENT
+   ======================================== */
+
+.stat-value-update {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2196F3;
+}
+
+.update-card {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 12;
+}
+
+.update-card-pending {
+    -fx-background-color: #FFF8E1;
+    -fx-border-color: #FFC107;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 12;
+}
+
+.update-card-approved {
+    -fx-background-color: #E8F5E9;
+    -fx-border-color: #4CAF50;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 12;
+}
+
+.update-version {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+}
+
+.update-policy {
+    -fx-font-size: 11px;
+    -fx-text-fill: #888888;
+}
+
+/* Update policy indicators */
+.policy-auto {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1976D2;
+    -fx-padding: 2 6;
+    -fx-background-radius: 3;
+    -fx-font-size: 10px;
+}
+
+.policy-admin-approved {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #E65100;
+    -fx-padding: 2 6;
+    -fx-background-radius: 3;
+    -fx-font-size: 10px;
+}
+
+.policy-manual {
+    -fx-background-color: #F3E5F5;
+    -fx-text-fill: #7B1FA2;
+    -fx-padding: 2 6;
+    -fx-background-radius: 3;
+    -fx-font-size: 10px;
+}
+
+.policy-disabled {
+    -fx-background-color: #EEEEEE;
+    -fx-text-fill: #757575;
+    -fx-padding: 2 6;
+    -fx-background-radius: 3;
+    -fx-font-size: 10px;
 }

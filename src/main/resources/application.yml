@@ -36,3 +36,16 @@ heronix:
     secret-key-file: ${user.home}/.heronix/config/secret.key
     token-file: ${user.home}/.heronix/auth/token.jwt
     expiration-hours: 8
+
+  # SIS Server Configuration
+  # The Hub will authenticate users against the SIS server
+  # If SIS is unavailable, local admin account can still be used
+  sis:
+    # Primary SIS server URL (e.g., http://localhost:9580 or http://192.168.1.100:9580)
+    primary-url: ${SIS_URL:http://localhost:9580}
+    # Fallback URLs (comma-separated)
+    fallback-urls: http://localhost:8080
+    # Connection timeout in milliseconds
+    connect-timeout: 5000
+    # Read timeout in milliseconds
+    read-timeout: 10000

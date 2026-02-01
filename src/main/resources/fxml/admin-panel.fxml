@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.heronixedu.hub.controller.AdminPanelController"
+            styleClass="admin-panel"
+            prefWidth="1100" prefHeight="750">
+
+    <!-- Header -->
+    <top>
+        <HBox styleClass="admin-header" alignment="CENTER_LEFT" spacing="20">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+            <Label text="Admin Panel" styleClass="admin-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="userRoleLabel" styleClass="user-role-label"/>
+            <Button fx:id="backButton" text="Back to Dashboard" onAction="#handleBack" styleClass="secondary-button"/>
+        </HBox>
+    </top>
+
+    <!-- Main Content - Tabbed -->
+    <center>
+        <TabPane fx:id="adminTabPane" tabClosingPolicy="UNAVAILABLE" styleClass="admin-tabs">
+
+            <!-- Users Tab -->
+            <Tab fx:id="usersTab" text="Users">
+                <VBox spacing="15" styleClass="tab-content">
+                    <padding>
+                        <Insets topRightBottomLeft="20"/>
+                    </padding>
+
+                    <!-- Toolbar -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="userSearchField" promptText="Search users..." prefWidth="250"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="addUserButton" text="+ Add User" onAction="#handleAddUser" styleClass="primary-button"/>
+                        <Button fx:id="refreshUsersButton" text="Refresh" onAction="#handleRefreshUsers"/>
+                    </HBox>
+
+                    <!-- Users Table -->
+                    <TableView fx:id="usersTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="userIdColumn" text="ID" prefWidth="60"/>
+                            <TableColumn fx:id="usernameColumn" text="Username" prefWidth="150"/>
+                            <TableColumn fx:id="fullNameColumn" text="Full Name" prefWidth="200"/>
+                            <TableColumn fx:id="emailColumn" text="Email" prefWidth="200"/>
+                            <TableColumn fx:id="userRoleColumn" text="Role" prefWidth="120"/>
+                            <TableColumn fx:id="activeColumn" text="Active" prefWidth="80"/>
+                            <TableColumn fx:id="userActionsColumn" text="Actions" prefWidth="180"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <!-- Network Tab -->
+            <Tab fx:id="networkTab" text="Network Settings">
+                <ScrollPane fitToWidth="true" styleClass="tab-content">
+                    <VBox spacing="20">
+                        <padding>
+                            <Insets topRightBottomLeft="20"/>
+                        </padding>
+
+                        <!-- Server Settings -->
+                        <TitledPane text="Server Settings" expanded="true" collapsible="false">
+                            <GridPane hgap="15" vgap="10" styleClass="form-grid">
+                                <Label text="Server Type:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <ComboBox fx:id="serverTypeCombo" prefWidth="300" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Local Server Path:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TextField fx:id="localServerPathField" HBox.hgrow="ALWAYS"
+                                               promptText="\\\\SERVER\\heronix or smb://server/heronix"/>
+                                    <Button fx:id="browseLocalButton" text="Browse..." onAction="#handleBrowseLocal"/>
+                                </HBox>
+
+                                <Label text="Cloud Server URL:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="cloudServerUrlField" prefWidth="400" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                                           promptText="https://downloads.heronix.com"/>
+
+                                <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Button fx:id="testConnectionButton" text="Test Connection" onAction="#handleTestConnection"/>
+                                    <Label fx:id="connectionStatusLabel" styleClass="status-label"/>
+                                </HBox>
+                            </GridPane>
+                        </TitledPane>
+
+                        <!-- Proxy Settings -->
+                        <TitledPane text="Proxy Settings" expanded="false">
+                            <GridPane hgap="15" vgap="10" styleClass="form-grid">
+                                <CheckBox fx:id="proxyEnabledCheckbox" text="Enable Proxy"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+
+                                <Label text="Proxy Type:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <ComboBox fx:id="proxyTypeCombo" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Host:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="proxyHostField" prefWidth="300" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Port:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <TextField fx:id="proxyPortField" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                <TextField fx:id="proxyUsernameField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                                <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                                <PasswordField fx:id="proxyPasswordField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                            </GridPane>
+                        </TitledPane>
+
+                        <!-- DNS Settings -->
+                        <TitledPane text="DNS Settings" expanded="false">
+                            <GridPane hgap="15" vgap="10" styleClass="form-grid">
+                                <CheckBox fx:id="customDnsCheckbox" text="Use Custom DNS"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+
+                                <Label text="Primary DNS:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="primaryDnsField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                           promptText="8.8.8.8"/>
+
+                                <Label text="Secondary DNS:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="secondaryDnsField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                                           promptText="8.8.4.4"/>
+                            </GridPane>
+                        </TitledPane>
+
+                        <!-- SSL Settings -->
+                        <TitledPane text="SSL/TLS Settings" expanded="false">
+                            <GridPane hgap="15" vgap="10" styleClass="form-grid">
+                                <CheckBox fx:id="sslEnabledCheckbox" text="Enable Custom SSL Certificate"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+
+                                <Label text="Certificate Path:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TextField fx:id="sslCertPathField" HBox.hgrow="ALWAYS"/>
+                                    <Button text="Browse..." onAction="#handleBrowseCert"/>
+                                </HBox>
+
+                                <CheckBox fx:id="sslVerifyHostnameCheckbox" text="Verify Hostname"
+                                          GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2"/>
+                            </GridPane>
+                        </TitledPane>
+
+                        <!-- Firewall Info -->
+                        <TitledPane text="Firewall Information (Read-only)" expanded="false">
+                            <VBox spacing="10">
+                                <Label text="Required outbound ports for Heronix Hub:"/>
+                                <TextArea fx:id="firewallInfoArea" editable="false" prefRowCount="4"
+                                          text="Port 80 (HTTP)&#10;Port 443 (HTTPS)&#10;Port 8080 (API)&#10;Port 8081 (WebSocket)"/>
+                            </VBox>
+                        </TitledPane>
+
+                        <!-- Action Buttons -->
+                        <HBox spacing="10" alignment="CENTER_RIGHT">
+                            <Button fx:id="resetNetworkButton" text="Reset to Defaults" onAction="#handleResetNetwork"/>
+                            <Button fx:id="saveNetworkButton" text="Save Configuration" onAction="#handleSaveNetwork" styleClass="primary-button"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- Products Tab -->
+            <Tab fx:id="productsTab" text="Products">
+                <VBox spacing="15" styleClass="tab-content">
+                    <padding>
+                        <Insets topRightBottomLeft="20"/>
+                    </padding>
+
+                    <!-- Toolbar -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Button fx:id="checkUpdatesButton" text="Check for Updates" onAction="#handleCheckUpdates"/>
+                        <Button fx:id="refreshProductsButton" text="Refresh" onAction="#handleRefreshProducts"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="productsStatusLabel"/>
+                    </HBox>
+
+                    <!-- Products Grid -->
+                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                        <FlowPane fx:id="productCardsPane" hgap="20" vgap="20" alignment="TOP_LEFT"/>
+                    </ScrollPane>
+                </VBox>
+            </Tab>
+
+            <!-- Software Catalog Tab -->
+            <Tab fx:id="softwareCatalogTab" text="Software Catalog">
+                <VBox spacing="15" styleClass="tab-content">
+                    <padding>
+                        <Insets topRightBottomLeft="20"/>
+                    </padding>
+
+                    <!-- Toolbar -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="softwareSearchField" promptText="Search software..." prefWidth="250"/>
+                        <ComboBox fx:id="softwareCategoryFilter" promptText="All Categories" prefWidth="180"/>
+                        <CheckBox fx:id="showApprovedOnlyCheckbox" text="Approved Only" selected="true"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="addSoftwareButton" text="+ Add Software" onAction="#handleAddSoftware" styleClass="primary-button"/>
+                        <Button fx:id="refreshSoftwareButton" text="Refresh" onAction="#handleRefreshSoftware"/>
+                    </HBox>
+
+                    <!-- Statistics Bar -->
+                    <HBox spacing="30" styleClass="stats-bar">
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <Label text="Total:" styleClass="stat-label"/>
+                            <Label fx:id="totalSoftwareLabel" text="0" styleClass="stat-value"/>
+                        </HBox>
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <Label text="Approved:" styleClass="stat-label"/>
+                            <Label fx:id="approvedSoftwareLabel" text="0" styleClass="stat-value"/>
+                        </HBox>
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <Label text="Installed:" styleClass="stat-label"/>
+                            <Label fx:id="installedSoftwareLabel" text="0" styleClass="stat-value"/>
+                        </HBox>
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <Label text="Pending Approval:" styleClass="stat-label"/>
+                            <Label fx:id="pendingSoftwareLabel" text="0" styleClass="stat-value-warning"/>
+                        </HBox>
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <Label text="Updates Available:" styleClass="stat-label"/>
+                            <Label fx:id="updatesAvailableLabel" text="0" styleClass="stat-value-update"/>
+                        </HBox>
+                    </HBox>
+
+                    <!-- Software Table -->
+                    <TableView fx:id="softwareTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="swNameColumn" text="Name" prefWidth="180"/>
+                            <TableColumn fx:id="swPublisherColumn" text="Publisher" prefWidth="140"/>
+                            <TableColumn fx:id="swCategoryColumn" text="Category" prefWidth="120"/>
+                            <TableColumn fx:id="swVersionColumn" text="Version" prefWidth="80"/>
+                            <TableColumn fx:id="swInstallerTypeColumn" text="Type" prefWidth="80"/>
+                            <TableColumn fx:id="swApprovedColumn" text="Approved" prefWidth="80"/>
+                            <TableColumn fx:id="swInstalledColumn" text="Installed" prefWidth="80"/>
+                            <TableColumn fx:id="swActionsColumn" text="Actions" prefWidth="220"/>
+                        </columns>
+                    </TableView>
+
+                    <!-- Pending Updates Section -->
+                    <TitledPane fx:id="pendingUpdatesPane" text="Pending Updates" expanded="false">
+                        <VBox spacing="10">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Updates awaiting approval or ready to install:" styleClass="section-description"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button fx:id="checkAllUpdatesBtn" text="Check All Updates" onAction="#handleCheckAllUpdates"/>
+                            </HBox>
+                            <FlowPane fx:id="pendingUpdatesFlowPane" hgap="15" vgap="10" alignment="TOP_LEFT"/>
+                        </VBox>
+                    </TitledPane>
+
+                    <!-- Pending Approval Section -->
+                    <TitledPane fx:id="pendingApprovalPane" text="Pending Approval" expanded="false">
+                        <VBox spacing="10">
+                            <Label text="Applications awaiting IT approval before deployment:" styleClass="section-description"/>
+                            <FlowPane fx:id="pendingAppsPane" hgap="15" vgap="10" alignment="TOP_LEFT"/>
+                        </VBox>
+                    </TitledPane>
+                </VBox>
+            </Tab>
+
+            <!-- Devices Tab -->
+            <Tab fx:id="devicesTab" text="Devices">
+                <VBox spacing="15" styleClass="tab-content">
+                    <padding>
+                        <Insets topRightBottomLeft="20"/>
+                    </padding>
+
+                    <!-- Toolbar -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Pending Device Approvals" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="refreshDevicesButton" text="Refresh" onAction="#handleRefreshDevices"/>
+                    </HBox>
+
+                    <!-- Devices Table -->
+                    <TableView fx:id="devicesTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="deviceNameColumn" text="Hostname" prefWidth="160"/>
+                            <TableColumn fx:id="deviceIdColumn" text="Device ID" prefWidth="120"/>
+                            <TableColumn fx:id="deviceMacColumn" text="MAC Address" prefWidth="140"/>
+                            <TableColumn fx:id="deviceOsColumn" text="Operating System" prefWidth="160"/>
+                            <TableColumn fx:id="deviceAccountColumn" text="Registered By" prefWidth="120"/>
+                            <TableColumn fx:id="deviceStatusColumn" text="Status" prefWidth="120"/>
+                            <TableColumn fx:id="deviceRegisteredAtColumn" text="Registered At" prefWidth="140"/>
+                            <TableColumn fx:id="deviceActionsColumn" text="Actions" prefWidth="180"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <!-- Audit Logs Tab -->
+            <Tab fx:id="logsTab" text="Audit Logs">
+                <VBox spacing="15" styleClass="tab-content">
+                    <padding>
+                        <Insets topRightBottomLeft="20"/>
+                    </padding>
+
+                    <!-- Filters -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="logSearchField" promptText="Search by username..." prefWidth="200"/>
+                        <ComboBox fx:id="actionFilterCombo" promptText="Filter by action" prefWidth="180"/>
+                        <DatePicker fx:id="fromDatePicker" promptText="From date"/>
+                        <DatePicker fx:id="toDatePicker" promptText="To date"/>
+                        <Button text="Search" onAction="#handleSearchLogs"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="exportLogsButton" text="Export CSV" onAction="#handleExportLogs"/>
+                    </HBox>
+
+                    <!-- Logs Table -->
+                    <TableView fx:id="logsTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="logTimestampColumn" text="Timestamp" prefWidth="160"/>
+                            <TableColumn fx:id="logUsernameColumn" text="User" prefWidth="120"/>
+                            <TableColumn fx:id="logActionColumn" text="Action" prefWidth="180"/>
+                            <TableColumn fx:id="logEntityColumn" text="Entity" prefWidth="120"/>
+                            <TableColumn fx:id="logSuccessColumn" text="Success" prefWidth="80"/>
+                            <TableColumn fx:id="logDetailsColumn" text="Details" prefWidth="350"/>
+                        </columns>
+                    </TableView>
+
+                    <!-- Pagination -->
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button fx:id="prevPageButton" text="Previous" onAction="#handlePrevPage"/>
+                        <Label fx:id="pageInfoLabel" text="Page 1"/>
+                        <Button fx:id="nextPageButton" text="Next" onAction="#handleNextPage"/>
+                    </HBox>
+                </VBox>
+            </Tab>
+
+            <!-- System Status Tab -->
+            <Tab fx:id="statusTab" text="System Status">
+                <ScrollPane fitToWidth="true" styleClass="tab-content">
+                    <VBox spacing="20">
+                        <padding>
+                            <Insets topRightBottomLeft="20"/>
+                        </padding>
+
+                        <!-- Status Cards -->
+                        <HBox spacing="20">
+                            <VBox styleClass="status-card" prefWidth="200">
+                                <Label text="Database" styleClass="status-title"/>
+                                <Label fx:id="dbStatusLabel" text="Checking..." styleClass="status-value"/>
+                            </VBox>
+                            <VBox styleClass="status-card" prefWidth="200">
+                                <Label text="Local Server" styleClass="status-title"/>
+                                <Label fx:id="localServerStatusLabel" text="Checking..." styleClass="status-value"/>
+                            </VBox>
+                            <VBox styleClass="status-card" prefWidth="200">
+                                <Label text="Cloud Server" styleClass="status-title"/>
+                                <Label fx:id="cloudServerStatusLabel" text="Checking..." styleClass="status-value"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Statistics -->
+                        <TitledPane text="Statistics" expanded="true" collapsible="false">
+                            <GridPane hgap="30" vgap="10">
+                                <Label text="Total Users:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <Label fx:id="totalUsersLabel" text="0" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Total Products:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <Label fx:id="totalProductsLabel" text="0" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Installed Products:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <Label fx:id="installedProductsLabel" text="0" styleClass="stat-value" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            </GridPane>
+                        </TitledPane>
+
+                        <!-- System Info -->
+                        <TitledPane text="System Information" expanded="true" collapsible="false">
+                            <GridPane hgap="30" vgap="10">
+                                <Label text="Hub Version:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <Label fx:id="hubVersionLabel" text="1.0.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Java Version:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <Label fx:id="javaVersionLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Operating System:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <Label fx:id="osLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Memory Usage:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <ProgressBar fx:id="memoryProgressBar" prefWidth="200"/>
+                                    <Label fx:id="memoryLabel" text="0 MB / 0 MB"/>
+                                </HBox>
+                            </GridPane>
+                        </TitledPane>
+
+                        <Button text="Refresh Status" onAction="#handleRefreshStatus" styleClass="primary-button"/>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+        </TabPane>
+    </center>
+
+</BorderPane>

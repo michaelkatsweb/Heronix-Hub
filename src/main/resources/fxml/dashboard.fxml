@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
@@ -25,6 +26,18 @@
 
             <Label fx:id="welcomeLabel" styleClass="welcome-label"/>
 
+            <!-- Server Status Indicator -->
+            <HBox alignment="CENTER" spacing="5" styleClass="status-indicator-container">
+                <Circle fx:id="serverStatusIndicator" radius="6" styleClass="status-indicator"/>
+                <Label fx:id="serverStatusLabel" text="Checking..." styleClass="status-indicator-label"/>
+            </HBox>
+
+            <Button fx:id="adminPanelButton"
+                    text="Admin Panel"
+                    onAction="#handleAdminPanel"
+                    styleClass="admin-button"
+                    visible="false"/>
+
             <Button fx:id="logoutButton"
                     text="Logout"
                     onAction="#handleLogout"
@@ -40,23 +53,46 @@
                     <Insets top="30" right="30" bottom="30" left="30"/>
                 </padding>
 
-                <Text text="Select a Product to Launch" styleClass="section-title"/>
+                <!-- Category Filter Bar -->
+                <HBox fx:id="categoryFilterBar" alignment="CENTER" spacing="10" styleClass="category-filter-bar">
+                    <Label text="Filter:" styleClass="filter-label"/>
+                    <ComboBox fx:id="categoryFilter" promptText="All Applications" prefWidth="200"/>
+                    <TextField fx:id="searchField" promptText="Search applications..." prefWidth="200"/>
+                    <Button fx:id="refreshButton" text="↻" onAction="#handleRefresh" styleClass="refresh-button"/>
+                </HBox>
 
-                <!-- Product Tiles Container -->
-                <FlowPane fx:id="productTilesContainer"
-                          alignment="CENTER"
-                          hgap="20"
-                          vgap="20"
-                          prefWrapLength="600">
-                </FlowPane>
+                <!-- Heronix Products Section -->
+                <VBox fx:id="heronixProductsSection" spacing="15">
+                    <Text text="Heronix Education Suite" styleClass="section-title"/>
+                    <FlowPane fx:id="productTilesContainer"
+                              alignment="CENTER"
+                              hgap="20"
+                              vgap="20"
+                              prefWrapLength="700">
+                    </FlowPane>
+                </VBox>
+
+                <!-- Third-Party Applications Section -->
+                <VBox fx:id="thirdPartyAppsSection" spacing="15">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Text text="Installed Applications" styleClass="section-title"/>
+                        <Label fx:id="thirdPartyCountLabel" text="" styleClass="count-badge"/>
+                    </HBox>
+                    <FlowPane fx:id="thirdPartyTilesContainer"
+                              alignment="CENTER"
+                              hgap="20"
+                              vgap="20"
+                              prefWrapLength="700">
+                    </FlowPane>
+                </VBox>
 
                 <!-- No Products Message -->
                 <VBox fx:id="noProductsMessage"
                       alignment="CENTER"
                       spacing="10"
                       visible="false">
-                    <Text text="No products available" styleClass="info-text"/>
-                    <Text text="Please install Heronix products to get started" styleClass="info-subtext"/>
+                    <Text text="No applications available" styleClass="info-text"/>
+                    <Text text="Contact your IT administrator to request applications" styleClass="info-subtext"/>
                 </VBox>
             </VBox>
         </ScrollPane>

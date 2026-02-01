@@ -1,5 +1,6 @@
 package com.heronixedu.hub.controller;
 
+import com.heronixedu.hub.exception.DeviceNotApprovedException;
 import com.heronixedu.hub.model.User;
 import com.heronixedu.hub.service.AuthenticationService;
 import javafx.application.Platform;
@@ -67,6 +68,12 @@ public class LoginController {
                     }
                 });
 
+            } catch (DeviceNotApprovedException e) {
+                // Device not approved - show specific message
+                Platform.runLater(() -> {
+                    showError(e.getMessage());
+                    loginButton.setDisable(false);
+                });
             } catch (RuntimeException e) {
                 // Show error
                 Platform.runLater(() -> {
