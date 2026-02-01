@@ -105,7 +105,7 @@ public class DataInitializer implements CommandLineRunner {
             roleRepository.findByRoleName(roleName).ifPresent(user::setRoleEntity);
 
             userRepository.save(user);
-            log.info("Created default {} user ({}/{})", roleName, username, password);
+            log.info("Created default {} user ({})", roleName, username);
         } else {
             // Update existing user to have role entity if missing
             userRepository.findByUsername(username).ifPresent(user -> {

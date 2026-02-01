@@ -171,16 +171,16 @@ public class AuthenticationService {
         // Map SIS roles to Hub roles
         for (String role : roles) {
             String upperRole = role.toUpperCase().replace("ROLE_", "");
-            if (upperRole.contains("ADMIN") || upperRole.contains("SUPERADMIN")) {
+            if (upperRole.equals("SUPERADMIN") || upperRole.equals("ADMIN")) {
                 return "SUPERADMIN";
             }
-            if (upperRole.contains("IT") || upperRole.contains("TECH")) {
+            if (upperRole.equals("IT_ADMIN") || upperRole.equals("IT") || upperRole.equals("TECH")) {
                 return "IT_ADMIN";
             }
-            if (upperRole.contains("TEACHER") || upperRole.contains("FACULTY")) {
+            if (upperRole.equals("TEACHER") || upperRole.equals("FACULTY")) {
                 return "TEACHER";
             }
-            if (upperRole.contains("STUDENT")) {
+            if (upperRole.equals("STUDENT")) {
                 return "STUDENT";
             }
         }

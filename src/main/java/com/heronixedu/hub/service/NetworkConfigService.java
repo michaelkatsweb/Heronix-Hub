@@ -122,9 +122,9 @@ public class NetworkConfigService {
             return false;
         }
 
+        HttpURLConnection connection = null;
         try {
             URL serverUrl = new URL(url);
-            HttpURLConnection connection;
 
             // Apply proxy if configured
             if (config.getProxyEnabled() && config.getProxyHost() != null) {
@@ -139,13 +139,15 @@ public class NetworkConfigService {
             connection.setReadTimeout(5000);
 
             int responseCode = connection.getResponseCode();
-            connection.disconnect();
-
             return responseCode >= 200 && responseCode < 400;
 
         } catch (Exception e) {
             log.error("Error testing cloud server: {}", url, e);
             return false;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
     }
 
