@@ -30,6 +30,7 @@ public class KioskModeService {
     private final KioskConfigRepository configRepository;
     private final AuditLogService auditLogService;
     private final NativeKeyBlocker nativeKeyBlocker;
+    private final ProcessGuardService processGuardService;
 
     private KioskConfig cachedConfig;
     private String activeRole;
@@ -227,6 +228,9 @@ public class KioskModeService {
                 nativeKeyBlocker.start();
             }
 
+            // Start process guard to kill Task Manager if students open it
+            processGuardService.start();
+
             log.info("Kiosk mode settings applied to stage (role: {})", activeRole);
         });
     }
@@ -280,6 +284,7 @@ public class KioskModeService {
     @PreDestroy
     public void cleanup() {
         nativeKeyBlocker.stop();
+        processGuardService.stop();
     }
 
     /**
