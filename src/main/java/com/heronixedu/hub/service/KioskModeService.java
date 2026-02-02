@@ -5,7 +5,11 @@ import com.heronixedu.hub.model.User;
 import com.heronixedu.hub.model.enums.AuditAction;
 import com.heronixedu.hub.repository.KioskConfigRepository;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +29,10 @@ public class KioskModeService {
 
     private final KioskConfigRepository configRepository;
     private final AuditLogService auditLogService;
+    private final NativeKeyBlocker nativeKeyBlocker;
 
     private KioskConfig cachedConfig;
+    private String activeRole;
 
     @PostConstruct
     public void init() {
@@ -148,10 +154,19 @@ public class KioskModeService {
     }
 
     /**
+     * Apply kiosk mode settings to a stage for a specific user role.
+     * Kiosk mode only activates for STUDENT role.
+     */
+    public void applyToStage(Stage stage, String userRole) {
+        this.activeRole = userRole;
+        applyToStage(stage);
+    }
+
+    /**
      * Apply kiosk mode settings to a stage.
      */
     public void applyToStage(Stage stage) {
-        if (!isKioskModeEnabled()) {
+        if (!isEffectivelyEnabled()) {
             return;
         }
 
@@ -163,11 +178,15 @@ public class KioskModeService {
                 stage.setMaximized(true);
                 stage.setFullScreen(true);
                 stage.setFullScreenExitHint("");
+                stage.setResizable(false);
             }
+
+            // Always on top
+            stage.setAlwaysOnTop(true);
 
             // Prevent closing (requires admin intervention)
             stage.setOnCloseRequest(event -> {
-                if (isKioskModeEnabled()) {
+                if (isEffectivelyEnabled()) {
                     event.consume();
                     log.info("Close attempt blocked in kiosk mode");
                 }
@@ -176,14 +195,91 @@ public class KioskModeService {
             // Prevent minimize if configured
             if (!Boolean.TRUE.equals(config.getAllowMinimize())) {
                 stage.iconifiedProperty().addListener((obs, wasMinimized, isMinimized) -> {
-                    if (isMinimized && isKioskModeEnabled()) {
+                    if (isMinimized && isEffectivelyEnabled()) {
                         Platform.runLater(() -> stage.setIconified(false));
                     }
                 });
             }
 
-            log.info("Kiosk mode settings applied to stage");
+            // Re-focus if window loses focus (prevent students navigating away)
+            stage.focusedProperty().addListener((obs, wasFocused, isFocused) -> {
+                if (!isFocused && isEffectivelyEnabled()) {
+                    Platform.runLater(() -> {
+                        stage.setAlwaysOnTop(true);
+                        stage.toFront();
+                        stage.requestFocus();
+                    });
+                }
+            });
+
+            // Block dangerous key combos at the JavaFX level
+            stage.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    installKeyFilter(newScene);
+                }
+            });
+            if (stage.getScene() != null) {
+                installKeyFilter(stage.getScene());
+            }
+
+            // Enable native OS-level key blocking (Alt+Tab, Win key, etc.)
+            if (Boolean.TRUE.equals(config.getDisableOsShortcuts())) {
+                nativeKeyBlocker.start();
+            }
+
+            log.info("Kiosk mode settings applied to stage (role: {})", activeRole);
         });
+    }
+
+    /**
+     * Install a key event filter on a scene to block escape-related shortcuts.
+     */
+    private void installKeyFilter(javafx.scene.Scene scene) {
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (!isEffectivelyEnabled()) return;
+
+            // Block Alt+F4, Alt+Tab, Alt+Esc
+            if (event.isAltDown() && (event.getCode() == KeyCode.F4 ||
+                    event.getCode() == KeyCode.TAB ||
+                    event.getCode() == KeyCode.ESCAPE)) {
+                event.consume();
+            }
+            // Block Ctrl+Esc (Start menu)
+            if (event.isControlDown() && event.getCode() == KeyCode.ESCAPE) {
+                event.consume();
+            }
+            // Block Windows/Meta key
+            if (event.getCode() == KeyCode.WINDOWS || event.getCode() == KeyCode.META) {
+                event.consume();
+            }
+            // Block F11 (fullscreen toggle exit)
+            if (event.getCode() == KeyCode.F11) {
+                event.consume();
+            }
+            // Block Escape (fullscreen exit)
+            if (event.getCode() == KeyCode.ESCAPE) {
+                event.consume();
+            }
+        });
+    }
+
+    /**
+     * Check if kiosk mode is effectively enabled (config enabled AND student role).
+     */
+    public boolean isEffectivelyEnabled() {
+        if (!isKioskModeEnabled()) {
+            return false;
+        }
+        // Only enforce kiosk for student role; admins/teachers can use desktop normally
+        if (activeRole != null && !"STUDENT".equalsIgnoreCase(activeRole)) {
+            return false;
+        }
+        return true;
+    }
+
+    @PreDestroy
+    public void cleanup() {
+        nativeKeyBlocker.stop();
     }
 
     /**

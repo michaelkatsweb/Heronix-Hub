@@ -5,6 +5,8 @@ import com.heronixedu.hub.controller.DashboardController;
 import com.heronixedu.hub.controller.LoginController;
 import com.heronixedu.hub.model.User;
 import com.heronixedu.hub.service.AuthenticationService;
+import com.heronixedu.hub.service.KioskModeService;
+import com.heronixedu.hub.service.StudentSessionMonitorService;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -65,6 +67,12 @@ public class HubApplication extends Application {
         }
 
         primaryStage.show();
+
+        // Apply kiosk mode if enabled (will only activate for STUDENT role)
+        if (existingUser != null) {
+            KioskModeService kioskModeService = springContext.getBean(KioskModeService.class);
+            kioskModeService.applyToStage(primaryStage, existingUser.getRole());
+        }
     }
 
     private void showLogin() {
@@ -111,6 +119,17 @@ public class HubApplication extends Application {
 
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
+
+            // Apply kiosk mode for student terminals
+            KioskModeService kioskModeService = springContext.getBean(KioskModeService.class);
+            kioskModeService.applyToStage(primaryStage, user.getRole());
+
+            // Start session monitor for students (enables teacher freeze/control)
+            if ("STUDENT".equalsIgnoreCase(user.getRole())) {
+                StudentSessionMonitorService monitor = springContext.getBean(StudentSessionMonitorService.class);
+                monitor.startMonitoring(user);
+                log.info("Started classroom session monitor for student: {}", user.getUsername());
+            }
 
         } catch (IOException e) {
             log.error("Error loading dashboard", e);

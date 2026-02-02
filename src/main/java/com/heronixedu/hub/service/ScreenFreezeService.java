@@ -1,9 +1,12 @@
 package com.heronixedu.hub.service;
 
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -165,14 +168,17 @@ public class ScreenFreezeService {
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
 
-        // Block keyboard shortcuts
-        scene.setOnKeyPressed(event -> {
-            // Consume all key events to prevent Alt+Tab, Alt+F4, etc.
-            event.consume();
+        // Block ALL keyboard and mouse events using event filters
+        // (filters fire before handlers and catch events before any propagation)
+        scene.addEventFilter(KeyEvent.ANY, Event::consume);
+        scene.addEventFilter(MouseEvent.ANY, event -> {
+            // Only allow mouse movement (for visual feedback), block clicks/drags
+            if (event.getEventType() != MouseEvent.MOUSE_MOVED &&
+                event.getEventType() != MouseEvent.MOUSE_ENTERED &&
+                event.getEventType() != MouseEvent.MOUSE_EXITED) {
+                event.consume();
+            }
         });
-
-        // Block mouse clicks from reaching other windows
-        scene.setOnMouseClicked(event -> event.consume());
 
         stage.setScene(scene);
         stage.setFullScreen(true);
