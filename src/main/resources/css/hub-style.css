@@ -19,7 +19,7 @@
 
 .app-subtitle {
     -fx-font-size: 14px;
-    -fx-fill: #757575;
+    -fx-fill: #616161;
 }
 
 .field-label {
@@ -181,7 +181,7 @@
 
 .status-not-installed {
     -fx-font-size: 12px;
-    -fx-fill: #757575;
+    -fx-fill: #616161;
     -fx-font-style: italic;
 }
 
@@ -222,7 +222,7 @@
 
 .status-label {
     -fx-font-size: 12px;
-    -fx-text-fill: #757575;
+    -fx-text-fill: #616161;
 }
 
 .category-productivity { -fx-background-color: #E8F5E9; -fx-text-fill: #2E7D32; }
@@ -241,7 +241,7 @@
 
 .version-text {
     -fx-font-size: 11px;
-    -fx-fill: #9E9E9E;
+    -fx-fill: #616161;
 }
 
 .count-badge {
@@ -266,12 +266,12 @@
 
 .filter-label {
     -fx-font-size: 13px;
-    -fx-text-fill: #757575;
+    -fx-text-fill: #616161;
 }
 
 .refresh-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #757575;
+    -fx-text-fill: #616161;
     -fx-font-size: 16px;
     -fx-padding: 5px 10px;
     -fx-cursor: hand;
@@ -288,12 +288,12 @@
 
 .info-text {
     -fx-font-size: 16px;
-    -fx-fill: #757575;
+    -fx-fill: #616161;
 }
 
 .info-subtext {
     -fx-font-size: 13px;
-    -fx-fill: #757575;
+    -fx-fill: #616161;
 }
 
 /* ========================================
@@ -308,7 +308,7 @@
 
 .footer-text {
     -fx-font-size: 11px;
-    -fx-fill: #757575;
+    -fx-fill: #616161;
 }
 
 /* ========================================
@@ -471,7 +471,7 @@
 
 .status-title {
     -fx-font-size: 12px;
-    -fx-text-fill: #757575;
+    -fx-text-fill: #616161;
     -fx-font-weight: 500;
 }
 
@@ -554,7 +554,7 @@
 
 .stat-label {
     -fx-font-size: 12px;
-    -fx-text-fill: #757575;
+    -fx-text-fill: #616161;
 }
 
 .stat-value-warning {
@@ -582,7 +582,7 @@
 
 .section-description {
     -fx-font-size: 12px;
-    -fx-text-fill: #757575;
+    -fx-text-fill: #616161;
     -fx-font-style: italic;
 }
 
@@ -624,7 +624,7 @@
 }
 
 .software-not-installed {
-    -fx-text-fill: #9E9E9E;
+    -fx-text-fill: #616161;
 }
 
 /* Category badges - defined at line 215 */
@@ -742,7 +742,7 @@
 
 .policy-disabled {
     -fx-background-color: #EEEEEE;
-    -fx-text-fill: #757575;
+    -fx-text-fill: #616161;
     -fx-padding: 2 6;
     -fx-background-radius: 3;
     -fx-font-size: 10px;
