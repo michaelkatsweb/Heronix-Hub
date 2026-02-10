@@ -41,8 +41,8 @@ heronix:
   # The Hub will authenticate users against the SIS server
   # If SIS is unavailable, local admin account can still be used
   sis:
-    # Primary SIS server URL (e.g., http://localhost:9580 or http://192.168.1.100:9580)
-    primary-url: ${SIS_URL:http://localhost:9580}
+    # Primary SIS server URL (e.g., http://localhost:9590 or http://192.168.1.100:9590)
+    primary-url: ${SIS_URL:http://localhost:9590}
     # Fallback URLs (comma-separated)
     fallback-urls: http://localhost:8080
     # Connection timeout in milliseconds
