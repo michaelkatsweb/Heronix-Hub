@@ -14,7 +14,7 @@ The easiest way to test is to update the database to point to the Hub JAR itself
    mvn javafx:run
    ```
 
-2. **Open H2 Console** in browser: http://localhost:8080/h2-console
+2. **Open H2 Console** in browser: http://localhost:9590/h2-console
 
 3. **Connect**:
    - JDBC URL: `jdbc:h2:file:~/.heronix/hub/hub`

@@ -118,7 +118,7 @@ heronix:
 
 Currently, users must be added directly to the database. Using H2 Console:
 
-1. Access H2 Console: http://localhost:8080/h2-console (when app is running)
+1. Access H2 Console: http://localhost:9590/h2-console (when app is running)
 2. Connect using:
    - JDBC URL: `jdbc:h2:file:~/.heronix/hub/hub`
    - Username: `sa`

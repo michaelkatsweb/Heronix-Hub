@@ -32,7 +32,7 @@ java -jar target/heronix-hub-1.0.0.jar
 **Option 2: Add admin user manually via H2 Console**
 
 1. Keep application running
-2. Open browser: http://localhost:8080/h2-console
+2. Open browser: http://localhost:9590/h2-console
 3. Connect with:
    - JDBC URL: `jdbc:h2:file:~/.heronix/hub/hub` (or use full path from your home directory)
    - Username: `sa`
@@ -237,7 +237,7 @@ mvn clean package -DskipTests
 ### Issue: H2 Console Won't Open
 
 **Symptoms:**
-- Can't access http://localhost:8080/h2-console
+- Can't access http://localhost:9590/h2-console
 - 404 error
 
 **Cause:**
@@ -246,7 +246,7 @@ H2 console is only available when application is running.
 **Solution:**
 
 1. Make sure application is running
-2. Try full URL: http://localhost:8080/h2-console
+2. Try full URL: http://localhost:9590/h2-console
 3. Check application.yml has:
 ```yaml
 spring:

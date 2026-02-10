@@ -70,7 +70,7 @@ Password: admin123
 ### H2 Console (Web Interface)
 
 1. **Start application**
-2. **Open browser**: http://localhost:8080/h2-console
+2. **Open browser**: http://localhost:9590/h2-console
 3. **Connection settings**:
    - **JDBC URL**: `jdbc:h2:file:~/.heronix/hub/hub`
    - **Username**: `sa`
@@ -258,7 +258,7 @@ After starting the application:
 - [ ] Logs written to: `~/.heronix/hub/logs/hub.log`
 - [ ] Logout deletes token file
 - [ ] Relaunch with token = auto-login
-- [ ] H2 console accessible at http://localhost:8080/h2-console
+- [ ] H2 console accessible at http://localhost:9590/h2-console
 
 ---
 
