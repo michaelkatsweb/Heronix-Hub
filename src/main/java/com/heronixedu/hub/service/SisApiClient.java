@@ -34,8 +34,8 @@ public class SisApiClient {
     // Default SIS server URLs to try
     private static final String[] DEFAULT_SIS_URLS = {
             "http://localhost:9590",
-            "http://localhost:9580",
-            "http://localhost:8080"
+            "http://localhost:9591",
+            "http://localhost:9592"
     };
 
     /**

@@ -44,7 +44,7 @@ heronix:
     # Primary SIS server URL (e.g., http://localhost:9590 or http://192.168.1.100:9590)
     primary-url: ${SIS_URL:http://localhost:9590}
     # Fallback URLs (comma-separated)
-    fallback-urls: http://localhost:8080
+    fallback-urls: http://localhost:9591,http://localhost:9592
     # Connection timeout in milliseconds
     connect-timeout: 5000
     # Read timeout in milliseconds
