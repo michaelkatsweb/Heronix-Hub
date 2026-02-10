@@ -271,7 +271,7 @@ public class SisApiClient {
     public boolean registerDevice(String serverUrl, String accessToken,
                                    String deviceId, String hostname, String macAddress,
                                    String osInfo, String accountId) {
-        String url = serverUrl + "/api/v1/gateway/devices/register";
+        String url = serverUrl + "/api/secure-sync/devices/register";
 
         try {
             NetworkConfig config = networkConfigService.getActiveConfig();
@@ -320,7 +320,7 @@ public class SisApiClient {
      * @return Device status string (ACTIVE, PENDING_APPROVAL, etc.) or empty if not found/error
      */
     public Optional<String> checkDeviceStatus(String serverUrl, String accessToken, String deviceId) {
-        String url = serverUrl + "/api/v1/gateway/devices/" + deviceId + "/status";
+        String url = serverUrl + "/api/secure-sync/devices/" + deviceId + "/status";
 
         try {
             NetworkConfig config = networkConfigService.getActiveConfig();
@@ -376,8 +376,12 @@ public class SisApiClient {
                 String response = new String(connection.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
                 JsonNode root = objectMapper.readTree(response);
 
-                if (root.isArray()) {
-                    for (JsonNode node : root) {
+                // Response may be a direct array or wrapped: {"pendingDevices": [...]}
+                JsonNode deviceArray = root.isArray() ? root
+                        : (root.has("pendingDevices") ? root.get("pendingDevices") : null);
+
+                if (deviceArray != null && deviceArray.isArray()) {
+                    for (JsonNode node : deviceArray) {
                         DeviceSummary device = new DeviceSummary();
                         device.setDeviceId(node.has("deviceId") ? node.get("deviceId").asText() : "");
                         device.setDeviceName(node.has("deviceName") ? node.get("deviceName").asText() : "");
